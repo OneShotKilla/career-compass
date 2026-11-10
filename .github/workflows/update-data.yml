@@ -1,0 +1,56 @@
+name: Weekly BLS data check
+
+on:
+  schedule:
+    # Every Monday at 11:00 UTC = 6 AM Eastern (7 AM during daylight saving time)
+    - cron: "0 11 * * 1"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Rebuild the data even if BLS hasn't changed anything"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install R packages
+        run: |
+          Rscript -e 'install.packages(c("httr2","readxl","dplyr","stringr","jsonlite","shiny","bslib","reactable","htmltools","rsconnect"))'
+
+      - name: Check BLS and rebuild if there's new data
+        env:
+          BLS_CONTACT: ${{ secrets.BLS_CONTACT }}
+          FORCE_REBUILD: ${{ inputs.force }}
+        run: Rscript scripts/update_data.R
+
+      - name: Refresh manifest for Posit Connect Cloud
+        run: |
+          Rscript -e 'rsconnect::writeManifest(appFiles = c("app.R", list.files("data", full.names = TRUE)), appPrimaryDoc = "app.R")'
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data manifest.json
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+          else
+            git commit -m "Weekly BLS check: $(date -u +%Y-%m-%d)"
+            git push
+          fi

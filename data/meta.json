@@ -1,0 +1,22 @@
+{
+  "oews_year": 2025,
+  "oews_label": "May 2025",
+  "proj_period": "2025–22035",
+  "avg_growth": 3.5,
+  "topcode_annual": 239200,
+  "built_at": "2026-11-10",
+  "sources": {
+    "oews": {
+      "url": "https://www.bls.gov/oes/special-requests/oesm25all.zip",
+      "fingerprint": "Fri, 15 May 2026 13:08:17 GMT|\"80f610e56be4dc1:0\"|78754064",
+      "md5": "7dc39045f1fd657b9719c6bab0b56664",
+      "downloaded_at": "2026-11-10"
+    },
+    "projections": {
+      "url": "https://www.bls.gov/emp/ind-occ-matrix/occupation.xlsx",
+      "fingerprint": "Fri, 23 Oct 2026 14:24:06 GMT|\"07fd28fa62dd1:0\"|413524",
+      "md5": "32dfb8952826a9d6e2f55f312b74d091",
+      "downloaded_at": "2026-11-10"
+    }
+  }
+}
