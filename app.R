@@ -443,7 +443,7 @@ server <- function(input, output, session) {
 
   output$table <- renderReactable({
     d <- table_data()
-    validate(need(nrow(d) > 0, "No careers match those filters here. Try loosening them."))
+    shiny::validate(need(nrow(d) > 0, "No careers match those filters here. Try loosening them."))
     show <- d |> transmute(title, field, in_demand, pay, hourly = h_median, a_p10, a_p90,
                            emp, growth_pct, local_openings, education, score)
     reactable(
