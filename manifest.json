@@ -1392,13 +1392,13 @@
   },
   "files": {
     "app.R": {
-      "checksum": "7c1fe208febe6038b4daef60ec2870ee"
+      "checksum": "efc33c70cdbdd4939d4e0136103d6165"
     },
     "data/careers.rds": {
       "checksum": "ab177b86d5056a78426399a08e7c68f4"
     },
     "data/last_checked.json": {
-      "checksum": "ee1379982b608449505846eef9e799bb"
+      "checksum": "df727e58df84f432acd655102edc8b1b"
     },
     "data/meta.json": {
       "checksum": "9611b103558bbdd8503079d3a3c1cfe3"
